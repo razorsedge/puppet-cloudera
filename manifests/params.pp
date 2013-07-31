@@ -32,7 +32,7 @@ class cloudera::params {
   }
 
   $ci_yumserver = $::cloudera_ci_yumserver ? {
-    undef   => 'http://beta.cloudera.com',
+    undef   => 'http://archive.cloudera.com',
     default => $::cloudera_ci_yumserver,
   }
 
@@ -87,7 +87,7 @@ class cloudera::params {
 
   $cdh_version = '4'
   $cm_version  = '4'
-  $ci_version  = '0'
+  $ci_version  = '1'
 
   case $::operatingsystem {
     'CentOS', 'RedHat', 'OEL', 'OracleLinux': {
