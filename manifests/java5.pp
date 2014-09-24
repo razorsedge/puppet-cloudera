@@ -90,7 +90,7 @@ class cloudera::java5 (
     'CentOS', 'RedHat', 'OEL', 'OracleLinux', 'SLES': {
       file { '/usr/java/default':
         ensure  => symlink,
-        target  => '/usr/java/jdk1.7.0_45-cloudera',
+        target  => '/usr/java/jdk1.7.0_55-cloudera',
         require => [ Anchor['cloudera::java5::begin'], Package['jdk'], ],
         before  => Anchor['cloudera::java5::end'],
       }
