@@ -50,6 +50,7 @@
 #
 # === Authors:
 #
+# Djuri Baars <dsbaars@gmail.com>
 # Mike Arnold <mike@razorsedge.org>
 #
 # === Copyright:
@@ -125,13 +126,25 @@ class cloudera::cdh5::repo (
     'Debian', 'Ubuntu': {
       include '::apt'
 
-      apt::source { 'cloudera-cdh5':
-        location     => "${reposerver}${repopath}",
-        release      => "${::lsbdistcodename}-cdh${version}",
-        repos        => 'contrib',
-        key          => $aptkey,
-        key_source   => "${reposerver}${repopath}archive.key",
-        architecture => $cloudera::params::architecture,
+      if ($::operatingsystem == 'Ubuntu' and $::operatingsystemrelease == '14.04') {
+          apt::source { 'cloudera-cdh5':
+              location     => "${reposerver}${repopath}",
+              release      => "${::lsbdistcodename}-cdh${version}",
+              repos        => 'contrib',
+              key          => $aptkey,
+              key_source   => "${reposerver}${repopath}archive.key",
+              architecture => $cloudera::params::architecture,
+              pin          => '501'
+          }
+      } else {
+          apt::source { 'cloudera-cdh5':
+              location     => "${reposerver}${repopath}",
+              release      => "${::lsbdistcodename}-cdh${version}",
+              repos        => 'contrib',
+              key          => $aptkey,
+              key_source   => "${reposerver}${repopath}archive.key",
+              architecture => $cloudera::params::architecture,
+          }
       }
 
       Apt::Source['cloudera-cdh5'] -> Package<|tag == 'cloudera-cdh5'|>
