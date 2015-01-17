@@ -93,6 +93,51 @@ describe 'cloudera::cdh5::repo', :type => 'class' do
         :architecture => nil
       )}
     end
+
+    describe 'Ubuntu 12.04' do
+        let :facts do {
+            :osfamily               => 'Debian',
+            :operatingsystem        => 'Ubuntu',
+            :operatingsystemrelease => '12.04',
+            :architecture           => 'amd64',
+            :lsbdistid              => 'Ubuntu',
+            :lsbdistcodename        => 'precise'
+        }
+    end
+    it { should compile.with_all_deps }
+    it { should contain_class('apt') }
+    it { should contain_apt__source('cloudera-cdh5').with(
+        :location     => 'http://archive.cloudera.com/cdh5/ubuntu/precise/amd64/cdh/',
+        :release      => 'precise-cdh5',
+        :repos        => 'contrib',
+        :key          => 'false',
+        :key_source   => 'http://archive.cloudera.com/cdh5/ubuntu/precise/amd64/cdh/archive.key',
+        :architecture => 'amd64'
+        )}
+    end
+
+    describe 'Ubuntu 14.04' do
+        let :facts do {
+            :osfamily               => 'Debian',
+            :operatingsystem        => 'Ubuntu',
+            :operatingsystemrelease => '14.04',
+            :architecture           => 'amd64',
+            :lsbdistid              => 'Ubuntu',
+            :lsbdistcodename        => 'trusty'
+        }
+    end
+    it { should compile.with_all_deps }
+    it { should contain_class('apt') }
+    it { should contain_apt__source('cloudera-cdh5').with(
+        :location     => 'http://archive.cloudera.com/cdh5/ubuntu/trusty/amd64/cdh/',
+        :release      => 'trusty-cdh5',
+        :repos        => 'contrib',
+        :key          => 'false',
+        :key_source   => 'http://archive.cloudera.com/cdh5/ubuntu/trusty/amd64/cdh/archive.key',
+        :architecture => 'amd64',
+        :pin          => '501'
+        ) }
+    end
   end
 
   context 'on a supported operatingsystem, custom parameters' do
