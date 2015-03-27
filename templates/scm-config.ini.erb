@@ -24,7 +24,7 @@ listening_hostname=<%= scope.lookupvar('::fqdn') %>
 # will also have a small amount of output (from before logging
 # is initialized.)
 <% if @log_file -%>
-# log_file=<%= @log_file %>
+log_file=<%= @log_file %>
 <% else -%>
 # log_file=/var/log/cloudera-scm-agent/cloudera-scm-agent.log
 <% end -%>
