@@ -217,6 +217,10 @@
 #   The directory where parcels are downloaded and distributed.
 #   Default: /opt/cloudera/parcels
 #
+# [*log_file*]
+#   The file where the cloudera-scm-agent logs are saved.
+#   Default: /var/log/cloudera-scm-agent/cloudera-scm-agent.log
+#
 # === Actions:
 #
 # Installs YUM repository configuration files.
@@ -386,6 +390,7 @@ class cloudera (
       verify_cert_file => $verify_cert_file,
       require          => $cloudera_cm_require,
       parcel_dir       => $parcel_dir,
+      log_file         => $log_file,
       before           => Anchor['cloudera::end'],
     }
     class { 'cloudera::cm5::repo':
@@ -587,6 +592,7 @@ class cloudera (
       verify_cert_file => $verify_cert_file,
       require          => $cloudera_cm_require,
       parcel_dir       => $parcel_dir,
+      log_file         => $log_file,
       before           => Anchor['cloudera::end'],
     }
     class { 'cloudera::cm::repo':

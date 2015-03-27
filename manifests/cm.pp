@@ -39,6 +39,11 @@
 #   The directory where parcels are downloaded and distributed.
 #   Default: /opt/cloudera/parcels
 #
+# [*log_file*]
+#   The file where the cloudera-scm-agent logs are saved.
+#   Default: /var/log/cloudera-scm-agent/cloudera-scm-agent.log
+#
+#
 # === Actions:
 #
 # Installs the packages.
