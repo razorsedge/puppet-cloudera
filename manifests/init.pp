@@ -304,7 +304,8 @@ class cloudera (
   $proxy            = $cloudera::params::proxy,
   $proxy_username   = $cloudera::params::proxy_username,
   $proxy_password   = $cloudera::params::proxy_password,
-  $parcel_dir       = $cloudera::params::parcel_dir
+  $parcel_dir       = $cloudera::params::parcel_dir,
+  $log_file         = $cloudera::params::log_file
 ) inherits cloudera::params {
   # Validate our booleans
   validate_bool($autoupgrade)

@@ -71,7 +71,8 @@ class cloudera::cm (
   $server_port      = $cloudera::params::cm_server_port,
   $use_tls          = $cloudera::params::safe_cm_use_tls,
   $verify_cert_file = $cloudera::params::verify_cert_file,
-  $parcel_dir       = $cloudera::params::parcel_dir
+  $parcel_dir       = $cloudera::params::parcel_dir,
+  $log_file         = $cloudera::params::log_file
 ) inherits cloudera::params {
   # Validate our booleans
   validate_bool($autoupgrade)
