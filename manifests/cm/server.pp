@@ -179,6 +179,12 @@ class cloudera::cm::server (
       require => Package['cloudera-manager-server'],
       notify  => Service['cloudera-scm-server'],
     }
+  } else {
+    file { '/etc/cloudera-scm-server/db.properties':
+      ensure  => $file_ensure,
+      path    => '/etc/cloudera-scm-server/db.properties',
+      require => Package['cloudera-manager-server'],
+    }
   }
 
   package { 'cloudera-manager-server':
