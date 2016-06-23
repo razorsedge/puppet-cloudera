@@ -71,7 +71,12 @@ class cloudera::params {
     default => $::cloudera_oozie_ext,
   }
 
-### The following parameters should not need to be changed.
+  $vm_swappiness = $::cloudera_vm_swappiness ? {
+    undef => 0,
+    default => $::cloudera_vm_swappiness,
+  }
+
+  ### The following parameters should not need to be changed.
 
   $ensure = $::cloudera_ensure ? {
     undef => 'present',
