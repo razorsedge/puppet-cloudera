@@ -308,4 +308,23 @@ class cloudera::params {
     default => $::cloudera_parcel_dir,
   }
 
+  $cm_api_host = $::cloudera_api_host ? {
+    undef => '127.0.0.1',
+    default => $::cloudera_api_host,
+  }
+
+  $cm_api_port = $::cloudera_api_port ? {
+    undef => 7180,
+    default => $::cloudera_api_port,
+  }
+
+  $cm_api_user = $::cloudera_api_user ? {
+    undef => 'admin',
+    default => $::cloudera_api_user,
+  }
+
+  $cm_api_password = $::cloudera_api_password ? {
+    undef => 'admin',
+    default => $::cloudera_api_password,
+  }
 }
