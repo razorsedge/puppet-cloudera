@@ -308,6 +308,11 @@ class cloudera::params {
     default => $::cloudera_parcel_dir,
   }
 
+  $cdh_cluster_name = $::cloudera_cdh_cluster_name ? {
+    undef => 'Cluster',
+    default => $::cloudera_cdh_cluster_name,
+  }
+
   $cm_api_host = $::cloudera_api_host ? {
     undef => '127.0.0.1',
     default => $::cloudera_api_host,

@@ -39,7 +39,7 @@ class cloudera::cluster::addhost (
   }
 
   exec { 'add_host':
-    command => "/usr/bin/curl -H 'Content-Type: application/json' -u $cloudera::params::cm_api_user:$cloudera::params::cm_api_password -XPOST \"http://$cm_api_host:$cm_api_port/api/v13/clusters/$cdh_cluster_name/hosts\" -d @host.json >> /tmp/log && touch /var/tmp/host_added.lock",
+    command => "/usr/bin/curl -H 'Content-Type: application/json' -u $cloudera::params::cm_api_user:$cloudera::params::cm_api_password -XPOST \"http://$cm_api_host:$cm_api_port/api/v13/clusters/$cdh_cluster_name/hosts\" -d @host.json && touch /var/tmp/host_added.lock",
     cwd     => "/tmp",
     creates => '/var/tmp/host_added.lock',
     require => File['host.json']
