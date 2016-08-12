@@ -33,7 +33,8 @@ define cloudera::cluster::addservice (
   $cm_api_port       = $cloudera::params::cm_api_port,
   $cm_api_user       = $cloudera::params::cm_api_user,
   $cm_api_password   = $cloudera::params::cm_api_password,
-  $hadoop_service_name = $title
+  $hadoop_service_name = $title,
+  $cdh_service_roles = $cloudera::params::cdh_service_roles
 ) {
 
   file { "$hadoop_service_name.json":
@@ -54,7 +55,7 @@ define cloudera::cluster::addservice (
   file { "$hadoop_service_name-roles.json":
     ensure  => $file_ensure,
     path    => "/tmp/$hadoop_service_name-roles.json",
-    content => template("${module_name}/$hadoop_service_name-roles.json.erb")
+    content => template("${module_name}/service-roles.json.erb")
   }
 
   exec { "add role for service $hadoop_service_name":

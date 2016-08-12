@@ -1,0 +1,11 @@
+{
+  "items": [
+<% @cdh_service_roles.each_with_index do |role, i| %>
+  {
+    "name": "<%= @hostname %>-<%= role %>",
+    "type": "<%= role %>",
+    "hostRef": { "hostId": "<%= @fqdn %>" }
+  },
+<% end %>
+  ]
+}
