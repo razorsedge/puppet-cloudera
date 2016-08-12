@@ -46,7 +46,9 @@ define cloudera::cluster::addservice (
     command => "/usr/bin/curl -H 'Content-Type: application/json' -u $cloudera::params::cm_api_user:$cloudera::params::cm_api_password -XPOST \"http://$cm_api_host:$cm_api_port/api/v1/clusters/$cdh_cluster_name/services\" -d @$hadoop_service_name.json && touch /var/tmp/$hadoop_service_name.lock",
     cwd     => "/tmp",
     creates => "/var/tmp/$hadoop_service_name.lock",
-    require => File["$hadoop_service_name.json"]
+    require => File["$hadoop_service_name.json"],
+    tries   => 3,
+    try_sleep => 60
   }
 
   file { "$hadoop_service_name-roles.json":
@@ -59,6 +61,8 @@ define cloudera::cluster::addservice (
     command => "/usr/bin/curl -H 'Content-Type: application/json' -u $cloudera::params::cm_api_user:$cloudera::params::cm_api_password -XPOST \"http://$cm_api_host:$cm_api_port/api/v1/clusters/$cdh_cluster_name/services/$hadoop_service_name/roles\" -d @$hadoop_service_name-roles.json && touch /var/tmp/$hadoop_service_name-roles.lock",
     cwd     => "/tmp",
     creates => "/var/tmp/$hadoop_service_name-roles.lock",
-    require => [File["$hadoop_service_name-roles.json"],Exec["add service $hadoop_service_name"]]
+    require => [File["$hadoop_service_name-roles.json"],Exec["add service $hadoop_service_name"]],
+    tries   => 3,
+    try_sleep => 60
   }
 }

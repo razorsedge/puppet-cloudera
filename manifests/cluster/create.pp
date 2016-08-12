@@ -43,7 +43,9 @@ class cloudera::cluster::create (
     command => "/usr/bin/curl -H 'Content-Type: application/json' -u $cloudera::params::cm_api_user:$cloudera::params::cm_api_password -XPOST \"http://$cm_api_host:$cm_api_port/api/v1/clusters\" -d @cluster.json && touch /var/tmp/cluster_created.lock",
     cwd     => "/tmp",
     creates => '/var/tmp/cluster_created.lock',
-    require => File['cluster.json']
+    require => File['cluster.json'],
+    tries   => 3,
+    try_sleep => 60
   }
 
 }
