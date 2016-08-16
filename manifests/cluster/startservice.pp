@@ -34,11 +34,10 @@ define cloudera::cluster::startservice (
   $cm_api_user       = $cloudera::params::cm_api_user,
   $cm_api_password   = $cloudera::params::cm_api_password,
   $hadoop_service_start = $title,
-  $cdh_service_start = $cloudera::params::cdh_service_start
 ) {
 
   exec { "start service $hadoop_service_start":
-    command => "/bin/echo /usr/bin/curl -H 'Content-Type: application/json' -u $cloudera::params::cm_api_user:$cloudera::params::cm_api_password -XPOST \"http://$cm_api_host:$cm_api_port/api/v1/clusters/$cdh_cluster_name/services/$hadoop_service_start/command/start\" && touch /var/tmp/$hadoop_service_start-started.lock",
+    command => "/usr/bin/curl -H 'Content-Type: application/json' -u $cloudera::params::cm_api_user:$cloudera::params::cm_api_password -XPOST \"http://$cm_api_host:$cm_api_port/api/v1/clusters/$cdh_cluster_name/services/$hadoop_service_start/command/start\" && touch /var/tmp/$hadoop_service_start-started.lock",
     cwd     => "/tmp",
     creates => "/var/tmp/$hadoop_service_start-started.lock",
     tries   => 3,
