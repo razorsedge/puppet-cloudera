@@ -33,8 +33,7 @@ define cloudera::cluster::configservice (
   $cm_api_port       = $cloudera::params::cm_api_port,
   $cm_api_user       = $cloudera::params::cm_api_user,
   $cm_api_password   = $cloudera::params::cm_api_password,
-  $hadoop_service_config = $title,
-  $cdh_service_config = $cloudera::params::cdh_service_config
+  $hadoop_service_config = $title
 ) {
 
   file { "$hadoop_service_config-config.json":
