@@ -34,21 +34,22 @@ define cloudera::cluster::roletypeconfig (
   $cm_api_port       = $cloudera::params::cm_api_port,
   $cm_api_user       = $cloudera::params::cm_api_user,
   $cm_api_password   = $cloudera::params::cm_api_password,
-  $cdh_service_config = $title,
-  $cdh_service_roletype = $cloudera::params::cdh_service_roletype
+  $cdh_cluster_service = $cloudera::params::cdh_cluster_service,
+  $cdh_service_roletype = $cloudera::params::cdh_service_roletype,
+  $cdh_items_config = $cloudera::params::cdh_items_config
 ) {
 
-  file { "$cdh_service_config-roletype.json":
+  file { "$cdh_cluster_service-$cdh_service_roletype-config.json":
     ensure  => $file_ensure,
-    path    => "/tmp/$cdh_service_config-config-roletype.json",
+    path    => "/tmp/$cdh_cluster_service-$cdh_service_roletype-config.json",
     content => template("${module_name}/service-roletype-config.json.erb")
   }
 
-  exec { "add config for service $cdh_service_config":
-    command => "/usr/bin/curl -H 'Content-Type: application/json' -u $cloudera::params::cm_api_user:$cloudera::params::cm_api_password -XPUT \"http://$cm_api_host:$cm_api_port/api/v1/clusters/$cdh_cluster_name/services/$cdh_service_config/config\" -d @$cdh_service_config-config-roletype.json > /tmp/log 2>&1 && touch /var/tmp/$cdh_service_config-config-roletype.lock",
+  exec { "add config for service $cdh_cluster_service role type $cdh_service_roletype":
+    command => "/usr/bin/curl -H 'Content-Type: application/json' -u $cloudera::params::cm_api_user:$cloudera::params::cm_api_password -XPUT \"http://$cm_api_host:$cm_api_port/api/v1/clusters/$cdh_cluster_name/services/$cdh_cluster_service/config\" -d @$cdh_cluster_service-$cdh_service_roletype-config.json && touch /var/tmp/$cdh_cluster_service-$cdh_service_roletype-config.lock",
     cwd     => "/tmp",
-    creates => "/var/tmp/$cdh_service_config-config-roletype.lock",
-    require => File["$cdh_service_config-config-roletype.json"],
+    creates => "/var/tmp/$cdh_cluster_service-$cdh_service_roletype-config.lock",
+    require => File["$cdh_cluster_service-$cdh_service_roletype-config.json"],
     tries   => 3,
     try_sleep => 60
   }

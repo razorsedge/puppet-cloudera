@@ -2,11 +2,11 @@
   "roleTypeConfigs" : [ {
     "roleType" : "<%= @cdh_service_roletype %>",
     "items" : [ {
-<% @cdh_service_config.each_with_index do |config, i| %>
+<% @cdh_items_config.each_with_index do |config, i| %>
   {
     "name": "<%= config['name'] %>",
     "value": "<%= config['value'] %>"
-  }<%= ',' if i < ( @cdh_service_config.size - 1) %>
+  }<%= ',' if i < ( @cdh_items_config.size - 1) %>
 <% end %>
     } ]
   } ],

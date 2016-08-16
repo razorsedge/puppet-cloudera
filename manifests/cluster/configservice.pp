@@ -33,20 +33,21 @@ define cloudera::cluster::configservice (
   $cm_api_port       = $cloudera::params::cm_api_port,
   $cm_api_user       = $cloudera::params::cm_api_user,
   $cm_api_password   = $cloudera::params::cm_api_password,
-  $hadoop_service_config = $title
+  $cdh_items_config  = $cloudera::params::cdh_items_config,
+  $cdh_service_config = $title
 ) {
 
-  file { "$hadoop_service_config-config.json":
+  file { "$cdh_service_config-config.json":
     ensure  => $file_ensure,
-    path    => "/tmp/$hadoop_service_config-config.json",
+    path    => "/tmp/$cdh_service_config-config.json",
     content => template("${module_name}/service-config.json.erb")
   }
 
-  exec { "add config for service $hadoop_service_config":
-    command => "/usr/bin/curl -H 'Content-Type: application/json' -u $cloudera::params::cm_api_user:$cloudera::params::cm_api_password -XPUT \"http://$cm_api_host:$cm_api_port/api/v1/clusters/$cdh_cluster_name/services/$hadoop_service_config/config\" -d @$hadoop_service_config-config.json > /tmp/log 2>&1 && touch /var/tmp/$hadoop_service_config-config.lock",
+  exec { "add config for service $cdh_service_config":
+    command => "/usr/bin/curl -H 'Content-Type: application/json' -u $cloudera::params::cm_api_user:$cloudera::params::cm_api_password -XPUT \"http://$cm_api_host:$cm_api_port/api/v1/clusters/$cdh_cluster_name/services/$cdh_service_config/config\" -d @$cdh_service_config-config.json > /tmp/log 2>&1 && touch /var/tmp/$hadoop_service_config-config.lock",
     cwd     => "/tmp",
-    creates => "/var/tmp/$hadoop_service_config-config.lock",
-    require => File["$hadoop_service_config-config.json"],
+    creates => "/var/tmp/$cdh_service_config-config.lock",
+    require => File["$cdh_service_config-config.json"],
     tries   => 3,
     try_sleep => 60
   }
