@@ -36,6 +36,14 @@ define cloudera::cluster::addcmrole (
   $cdh_service_roles = $cloudera::params::cdh_service_roles
 ) {
 
+  exec { "add CM MGMT":
+    command => "/usr/bin/curl -H 'Content-Type: application/json' -u $cloudera::params::cm_api_user:$cloudera::params::cm_api_password -XPUT \"http://$cm_api_host:$cm_api_port/api/v1/cm/service\" -d '{}' && touch /var/tmp/CM-MGMT.lock",
+    cwd     => "/tmp",
+    creates => "/var/tmp/CM-MGMT.lock",
+    tries   => 3,
+    try_sleep => 60
+  }
+
   file { "CM-roles.json":
     ensure  => $file_ensure,
     path    => "/tmp/CM-roles.json",
@@ -46,7 +54,7 @@ define cloudera::cluster::addcmrole (
     command => "/usr/bin/curl -H 'Content-Type: application/json' -u $cloudera::params::cm_api_user:$cloudera::params::cm_api_password -XPOST \"http://$cm_api_host:$cm_api_port/api/v1/cm/service/roles\" -d @CM-roles.json && touch /var/tmp/CM-roles.lock",
     cwd     => "/tmp",
     creates => "/var/tmp/CM-roles.lock",
-    require => File["CM-roles.json"],
+    require => [File["CM-roles.json"],Exec["add CM MGMT"]],
     tries   => 3,
     try_sleep => 60
   }
