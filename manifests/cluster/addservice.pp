@@ -55,7 +55,7 @@ define cloudera::cluster::addservice (
   file { "$hadoop_service_name-roles.json":
     ensure  => $file_ensure,
     path    => "/tmp/$hadoop_service_name-roles.json",
-    content => template("${module_name}/service-roles.json.erb")
+    content => template("${module_name}/roles.json.erb")
   }
 
   exec { "add role for service $hadoop_service_name":
