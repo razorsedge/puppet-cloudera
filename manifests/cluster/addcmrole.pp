@@ -27,7 +27,7 @@
 #
 #
 
-define cloudera::cluster::addcmrole (
+class cloudera::cluster::addcmrole (
   $cdh_cluster_name  = $cloudera::params::cdh_cluster_name,
   $cm_api_host       = $cloudera::params::cm_api_host,
   $cm_api_port       = $cloudera::params::cm_api_port,
@@ -57,5 +57,14 @@ define cloudera::cluster::addcmrole (
     require => [File["CM-roles.json"],Exec["add CM MGMT"]],
     tries   => 3,
     try_sleep => 60
+  }
+
+  exec { "start CM MGMT":
+    command => "/usr/bin/curl -H 'Content-Type: application/json' -u $cloudera::params::cm_api_user:$cloudera::params::cm_api_password -XPOST \"http://$cm_api_host:$cm_api_port/api/v1/cm/service/commands/start\" && touch /var/tmp/CM-MGMT-started.lock",
+    cwd     => "/tmp",
+    creates => "/var/tmp/CM-MGMT-started.lock",
+    tries   => 3,
+    try_sleep => 60,
+    require => Exec['add role for CM']
   }
 }
