@@ -40,11 +40,11 @@ define cloudera::cluster::configservice (
   file { "$cdh_service_config-config.json":
     ensure  => $file_ensure,
     path    => "/tmp/$cdh_service_config-config.json",
-    content => template("${module_name}/service-config.json.erb")
+    content => template("${module_name}/config.json.erb")
   }
 
   exec { "add config for service $cdh_service_config":
-    command => "/usr/bin/curl -H 'Content-Type: application/json' -u $cloudera::params::cm_api_user:$cloudera::params::cm_api_password -XPUT \"http://$cm_api_host:$cm_api_port/api/v1/clusters/$cdh_cluster_name/services/$cdh_service_config/config\" -d @$cdh_service_config-config.json > /tmp/log 2>&1 && touch /var/tmp/$hadoop_service_config-config.lock",
+    command => "/usr/bin/curl -H 'Content-Type: application/json' -u $cloudera::params::cm_api_user:$cloudera::params::cm_api_password -XPUT \"http://$cm_api_host:$cm_api_port/api/v1/clusters/$cdh_cluster_name/services/$cdh_service_config/config\" -d @$cdh_service_config-config.json > /tmp/log 2>&1 && touch /var/tmp/$cdh_service_config-config.lock",
     cwd     => "/tmp",
     creates => "/var/tmp/$cdh_service_config-config.lock",
     require => File["$cdh_service_config-config.json"],
