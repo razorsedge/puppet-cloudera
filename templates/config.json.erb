@@ -1,10 +1,10 @@
 {
   "items": [
-<% @cdh_items_config.each_with_index do |config, i| %>
+<% @items_config.each_with_index do |config, i| %>
   {
     "name": "<%= config['name'] %>",
     "value": "<%= config['value'] %>"
-  }<%= ',' if i < ( @cdh_items_config.size - 1) %>
+  }<%= ',' if i < ( @items_config.size - 1) %>
 <% end %>
   ]
 }

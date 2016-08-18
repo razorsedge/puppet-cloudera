@@ -36,7 +36,7 @@ define cloudera::cluster::configroletype (
   $cm_api_password   = $cloudera::params::cm_api_password,
   $cdh_cluster_service = $cloudera::params::cdh_cluster_service,
   $cdh_service_roletype = $cloudera::params::cdh_service_roletype,
-  $cdh_items_config = $cloudera::params::cdh_items_config
+  $items_config = $cloudera::params::items_config
 ) {
 
   file { "$cdh_cluster_service-$cdh_service_roletype-config.json":
