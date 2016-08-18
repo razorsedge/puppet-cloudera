@@ -33,7 +33,7 @@ define cloudera::cluster::configservice (
   $cm_api_port       = $cloudera::params::cm_api_port,
   $cm_api_user       = $cloudera::params::cm_api_user,
   $cm_api_password   = $cloudera::params::cm_api_password,
-  $cdh_items_config  = $cloudera::params::cdh_items_config,
+  $items_config      = $cloudera::params::items_config,
   $cdh_service_config = $title
 ) {
 
