@@ -25,6 +25,7 @@
 #
 
 class cloudera::cluster::addhost (
+  $cdh_metadata_dir  = $cloudera::params::cdh_metadata_dir,
   $cdh_cluster_name  = $cloudera::params::cdh_cluster_name,
   $cm_api_host       = $cloudera::params::cm_api_host,
   $cm_api_port       = $cloudera::params::cm_api_port,
@@ -39,9 +40,9 @@ class cloudera::cluster::addhost (
   }
 
   exec { 'add_host':
-    command => "/usr/bin/curl -H 'Content-Type: application/json' -u $cloudera::params::cm_api_user:$cloudera::params::cm_api_password -XPOST \"http://$cm_api_host:$cm_api_port/api/v13/clusters/$cdh_cluster_name/hosts\" -d @host.json && touch /var/tmp/host_added.lock",
+    command => "/usr/bin/curl -H 'Content-Type: application/json' -u $cloudera::params::cm_api_user:$cloudera::params::cm_api_password -XPOST \"http://$cm_api_host:$cm_api_port/api/v13/clusters/$cdh_cluster_name/hosts\" -d @host.json > $cdh_metadata_dir/$fqdn.json.output",
     cwd     => "/tmp",
-    creates => '/var/tmp/host_added.lock',
+    creates => "$cdh_metadata_dir/$fqdn.json.output",
     require => File['host.json'],
     tries   => 3,
     try_sleep => 60

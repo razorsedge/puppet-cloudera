@@ -28,6 +28,7 @@
 #
 
 define cloudera::cluster::addservice (
+  $cdh_metadata_dir  = $cloudera::params::cdh_metadata_dir,
   $cdh_cluster_name  = $cloudera::params::cdh_cluster_name,
   $cm_api_host       = $cloudera::params::cm_api_host,
   $cm_api_port       = $cloudera::params::cm_api_port,
@@ -44,9 +45,9 @@ define cloudera::cluster::addservice (
   }
 
   exec { "add service $hadoop_service_name":
-    command => "/usr/bin/curl -H 'Content-Type: application/json' -u $cloudera::params::cm_api_user:$cloudera::params::cm_api_password -XPOST \"http://$cm_api_host:$cm_api_port/api/v1/clusters/$cdh_cluster_name/services\" -d @$hadoop_service_name.json && touch /var/tmp/$hadoop_service_name.lock",
+    command => "/usr/bin/curl -H 'Content-Type: application/json' -u $cloudera::params::cm_api_user:$cloudera::params::cm_api_password -XPOST \"http://$cm_api_host:$cm_api_port/api/v1/clusters/$cdh_cluster_name/services\" -d @$hadoop_service_name.json > $cdh_metadata_dir/$hadoop_service_name.json.output",
     cwd     => "/tmp",
-    creates => "/var/tmp/$hadoop_service_name.lock",
+    creates => "$cdh_metadata_dir/$hadoop_service_name.json.output",
     require => File["$hadoop_service_name.json"],
     tries   => 3,
     try_sleep => 60
@@ -59,9 +60,9 @@ define cloudera::cluster::addservice (
   }
 
   exec { "add role for service $hadoop_service_name":
-    command => "/usr/bin/curl -H 'Content-Type: application/json' -u $cloudera::params::cm_api_user:$cloudera::params::cm_api_password -XPOST \"http://$cm_api_host:$cm_api_port/api/v1/clusters/$cdh_cluster_name/services/$hadoop_service_name/roles\" -d @$hadoop_service_name-roles.json && touch /var/tmp/$hadoop_service_name-roles.lock",
+    command => "/usr/bin/curl -H 'Content-Type: application/json' -u $cloudera::params::cm_api_user:$cloudera::params::cm_api_password -XPOST \"http://$cm_api_host:$cm_api_port/api/v1/clusters/$cdh_cluster_name/services/$hadoop_service_name/roles\" -d @$hadoop_service_name-roles.json > $cdh_metadata_dir/$hostname/$hadoop_service_name-roles.json.output",
     cwd     => "/tmp",
-    creates => "/var/tmp/$hadoop_service_name-roles.lock",
+    creates => "$cdh_metadata_dir/$hadoop_service_name-roles.json.output",
     require => [File["$hadoop_service_name-roles.json"],Exec["add service $hadoop_service_name"]],
     tries   => 3,
     try_sleep => 60

@@ -308,6 +308,10 @@ class cloudera::params {
     default => $::cloudera_parcel_dir,
   }
 
+  $cdh_metadata_dir = $::cloudera_cdh_metadata_dir ? {
+    undef => '/var/tmp/.clouderacluster',
+    default => $::cloudera_cdh_metadata_dir,
+  }
   $cdh_cluster_name = $::cloudera_cdh_cluster_name ? {
     undef => 'Cluster',
     default => $::cloudera_cdh_cluster_name,
