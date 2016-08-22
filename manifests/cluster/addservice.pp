@@ -60,7 +60,7 @@ define cloudera::cluster::addservice (
   }
 
   exec { "add role for service $hadoop_service_name":
-    command => "/usr/bin/curl -H 'Content-Type: application/json' -u $cloudera::params::cm_api_user:$cloudera::params::cm_api_password -XPOST \"http://$cm_api_host:$cm_api_port/api/v1/clusters/$cdh_cluster_name/services/$hadoop_service_name/roles\" -d @$hadoop_service_name-roles.json > $cdh_metadata_dir/$hostname/$hadoop_service_name-roles.json.output",
+    command => "/usr/bin/curl -H 'Content-Type: application/json' -u $cloudera::params::cm_api_user:$cloudera::params::cm_api_password -XPOST \"http://$cm_api_host:$cm_api_port/api/v1/clusters/$cdh_cluster_name/services/$hadoop_service_name/roles\" -d @$hadoop_service_name-roles.json > $cdh_metadata_dir/$hadoop_service_name-roles.json.output",
     cwd     => "/tmp",
     creates => "$cdh_metadata_dir/$hadoop_service_name-roles.json.output",
     require => [File["$hadoop_service_name-roles.json"],Exec["add service $hadoop_service_name"]],
