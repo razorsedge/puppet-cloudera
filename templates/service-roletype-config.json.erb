@@ -1,0 +1,14 @@
+{
+  "roleTypeConfigs" : [ {
+    "roleType" : "<%= @cdh_service_roletype %>",
+    "items" : [
+<% @items_config.each_with_index do |config, i| %>
+  {
+    "name": "<%= config['name'] %>",
+    "value": "<%= config['value'] %>"
+  }<%= ',' if i < ( @items_config.size - 1) %>
+<% end %>
+    ]
+  } ],
+  "items" : [ ]
+}

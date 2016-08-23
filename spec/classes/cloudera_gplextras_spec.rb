@@ -19,6 +19,7 @@ describe 'cloudera::gplextras', :type => 'class' do
 
   context 'on a supported operatingsystem, default parameters' do
     context 'CentOS 5.10' do
+      let(:pre_condition) { 'class {"epel":}' }
       let(:params) {{}}
       let :facts do {
         :osfamily               => 'RedHat',

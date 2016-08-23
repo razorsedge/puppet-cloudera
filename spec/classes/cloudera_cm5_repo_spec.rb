@@ -137,8 +137,9 @@ describe 'cloudera::cm5::repo', :type => 'class' do
 
   context 'on a supported operatingsystem, custom parameters' do
     let :facts do {
-      :osfamily        => 'RedHat',
-      :operatingsystem => 'OracleLinux'
+      :osfamily               => 'RedHat',
+      :operatingsystem        => 'OracleLinux',
+      :operatingsystemrelease => '6.0'
     }
     end
 

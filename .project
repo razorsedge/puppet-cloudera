@@ -3,12 +3,17 @@
 	<name>cloudera</name>
 	<comment></comment>
 	<projects>
+		<project>apt</project>
+		<project>augeasproviders_core</project>
+		<project>augeasproviders_sysctl</project>
+		<project>concat</project>
 		<project>epel</project>
 		<project>java_ks</project>
 		<project>mysql</project>
 		<project>postgresql</project>
 		<project>staging</project>
 		<project>stdlib</project>
+		<project>zypprepo</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
@@ -43,6 +48,15 @@
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
 				<arguments>1.0-projectRelativePath-matches-false-false-spec/fixtures/modules</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1428386119416</id>
+			<name></name>
+			<type>10</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-projectRelativePath-matches-false-false-.vendor</arguments>
 			</matcher>
 		</filter>
 	</filteredResources>

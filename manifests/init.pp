@@ -323,7 +323,7 @@ class cloudera (
     ensure  => $ensure,
     value   => '0',
     apply   => true,
-    comment => 'Clodera recommended setting.',
+    comment => 'Cloudera recommended setting.',
     require => Anchor['cloudera::begin'],
     before  => Anchor['cloudera::end'],
   }

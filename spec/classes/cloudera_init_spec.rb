@@ -20,8 +20,9 @@ describe 'cloudera', :type => 'class' do
   context 'on a supported operatingsystem, default parameters' do
     let(:params) {{}}
     let :facts do {
-      :osfamily        => 'RedHat',
-      :operatingsystem => 'CentOS'
+      :osfamily               => 'RedHat',
+      :operatingsystem        => 'CentOS',
+      :operatingsystemrelease => '6.0'
     }
     end
     it { should compile.with_all_deps }
@@ -54,8 +55,9 @@ describe 'cloudera', :type => 'class' do
 
   context 'on a supported operatingsystem, custom parameters, cm_version => 5' do
     let :facts do {
-      :osfamily        => 'RedHat',
-      :operatingsystem => 'CentOS'
+      :osfamily               => 'RedHat',
+      :operatingsystem        => 'CentOS',
+      :operatingsystemrelease => '6.0'
     }
     end
 
@@ -160,8 +162,9 @@ describe 'cloudera', :type => 'class' do
 
   context 'on a supported operatingsystem, custom parameters, cm_version => 4' do
     let :facts do {
-      :osfamily        => 'RedHat',
-      :operatingsystem => 'CentOS'
+      :osfamily               => 'RedHat',
+      :operatingsystem        => 'CentOS',
+      :operatingsystemrelease => '6.0'
     }
     end
 
@@ -247,8 +250,9 @@ describe 'cloudera', :type => 'class' do
   context 'on a supported operatingsystem, custom parameters, cm_version => blah' do
     let(:params) {{ :cm_version => 'blah' }}
     let :facts do {
-      :osfamily        => 'RedHat',
-      :operatingsystem => 'CentOS'
+      :osfamily               => 'RedHat',
+      :operatingsystem        => 'CentOS',
+      :operatingsystemrelease => '6.0'
     }
     end
     it do

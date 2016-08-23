@@ -202,7 +202,7 @@ class cloudera::params {
   $db_host       = 'localhost'
   $db_port       = '3306'
   $db_user       = 'root'
-  $db_pass       = ''
+  $db_pass       = undef
   $db_type       = 'embedded'
 
   case $::operatingsystem {
@@ -308,4 +308,32 @@ class cloudera::params {
     default => $::cloudera_parcel_dir,
   }
 
+  $cdh_metadata_dir = $::cloudera_cdh_metadata_dir ? {
+    undef => '/var/tmp/.clouderacluster',
+    default => $::cloudera_cdh_metadata_dir,
+  }
+  $cdh_cluster_name = $::cloudera_cdh_cluster_name ? {
+    undef => 'Cluster',
+    default => $::cloudera_cdh_cluster_name,
+  }
+
+  $cm_api_host = $::cloudera_api_host ? {
+    undef => '127.0.0.1',
+    default => $::cloudera_api_host,
+  }
+
+  $cm_api_port = $::cloudera_api_port ? {
+    undef => 7180,
+    default => $::cloudera_api_port,
+  }
+
+  $cm_api_user = $::cloudera_api_user ? {
+    undef => 'admin',
+    default => $::cloudera_api_user,
+  }
+
+  $cm_api_password = $::cloudera_api_password ? {
+    undef => 'admin',
+    default => $::cloudera_api_password,
+  }
 }
