@@ -19,9 +19,10 @@ describe 'cloudera::cm5', :type => 'class' do
 
   context 'on a supported operatingsystem, default parameters' do
     let :facts do {
-      :osfamily        => 'RedHat',
-      :operatingsystem => 'CentOS',
-      :fqdn            => 'myhost'
+      :fqdn                   => 'myhost',
+      :osfamily               => 'RedHat',
+      :operatingsystem        => 'CentOS',
+      :operatingsystemrelease => '6.0'
     }
     end
     it { should compile.with_all_deps }
@@ -51,9 +52,10 @@ describe 'cloudera::cm5', :type => 'class' do
 
   context 'on a supported operatingsystem, custom parameters' do
     let :facts do {
-      :osfamily        => 'RedHat',
-      :operatingsystem => 'OracleLinux',
-      :fqdn            => 'myhost'
+      :fqdn                   => 'myhost',
+      :osfamily               => 'RedHat',
+      :operatingsystem        => 'OracleLinux',
+      :operatingsystemrelease => '6.0'
     }
     end
 
@@ -146,8 +148,9 @@ describe 'cloudera::cm5', :type => 'class' do
 
       describe 'RedHat' do
         let :facts do {
-          :osfamily        => 'RedHat',
-          :operatingsystem => 'CentOS'
+          :osfamily               => 'RedHat',
+          :operatingsystem        => 'CentOS',
+          :operatingsystemrelease => '6.0'
         }
         end
         it { should contain_file('scm-config.ini').with_ensure('present') }
@@ -161,8 +164,9 @@ describe 'cloudera::cm5', :type => 'class' do
 
       describe 'SLES' do
         let :facts do {
-          :osfamily        => 'Suse',
-          :operatingsystem => 'SLES'
+          :osfamily               => 'Suse',
+          :operatingsystem        => 'SLES',
+          :operatingsystemrelease => '11.0'
         }
         end
         it { should contain_file('scm-config.ini').with_ensure('present') }
@@ -176,8 +180,9 @@ describe 'cloudera::cm5', :type => 'class' do
 
       describe 'Ubuntu' do
         let :facts do {
-          :osfamily        => 'Debian',
-          :operatingsystem => 'Ubuntu'
+          :osfamily               => 'Debian',
+          :operatingsystem        => 'Ubuntu',
+          :operatingsystemrelease => '12.04'
         }
         end
         it { should contain_file('scm-config.ini').with_ensure('present') }

@@ -3,12 +3,16 @@ fixtures:
     stdlib: "https://github.com/puppetlabs/puppetlabs-stdlib.git"
     mysql: "https://github.com/puppetlabs/puppetlabs-mysql.git"
     postgresql: "https://github.com/puppetlabs/puppet-postgresql.git"
-    concat: "https://github.com/puppetlabs/puppetlabs-concat.git"
+    concat:
+      repo: "https://github.com/puppetlabs/puppetlabs-concat.git"
+      ref: "1.2.1"
     staging: "https://github.com/nanliu/puppet-staging.git"
     epel: "https://github.com/stahnma/puppet-module-epel.git"
     java_ks: "https://github.com/puppetlabs/puppetlabs-java_ks.git"
     zypprepo: "https://github.com/deadpoint/puppet-zypprepo.git"
-    apt: "https://github.com/puppetlabs/puppetlabs-apt.git"
+    apt:
+      repo: "https://github.com/puppetlabs/puppetlabs-apt.git"
+      ref: "1.8.0"
     augeasproviders_core: "https://github.com/hercules-team/augeasproviders_core.git"
     augeasproviders_sysctl: "https://github.com/hercules-team/augeasproviders_sysctl.git"
   symlinks:

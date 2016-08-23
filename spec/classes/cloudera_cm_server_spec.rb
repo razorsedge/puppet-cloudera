@@ -19,8 +19,9 @@ describe 'cloudera::cm::server', :type => 'class' do
 
   context 'on a supported operatingsystem, default parameters' do
     let :facts do {
-      :osfamily        => 'RedHat',
-      :operatingsystem => 'CentOS'
+      :osfamily               => 'RedHat',
+      :operatingsystem        => 'CentOS',
+      :operatingsystemrelease => '6.0'
     }
     end
     it { should compile.with_all_deps }
@@ -54,8 +55,9 @@ describe 'cloudera::cm::server', :type => 'class' do
 
   context 'on a supported operatingsystem, custom parameters' do
     let :facts do {
-      :osfamily        => 'RedHat',
-      :operatingsystem => 'OracleLinux'
+      :osfamily               => 'RedHat',
+      :operatingsystem        => 'OracleLinux',
+      :operatingsystemrelease => '6.0'
     }
     end
 
@@ -158,9 +160,10 @@ describe 'cloudera::cm::server', :type => 'class' do
 
   context 'on a supported operatingsystem, custom parameters, db_type => mysql' do
     let :facts do {
-      :fqdn            => 'myhost.example.com',
-      :osfamily        => 'RedHat',
-      :operatingsystem => 'OracleLinux'
+      :fqdn                   => 'myhost.example.com',
+      :osfamily               => 'RedHat',
+      :operatingsystem        => 'OracleLinux',
+      :operatingsystemrelease => '6.0'
     }
     end
 
@@ -226,9 +229,10 @@ describe 'cloudera::cm::server', :type => 'class' do
 
   context 'on a supported operatingsystem, custom parameters, db_type => oracle' do
     let :facts do {
-      :fqdn            => 'myhost.example.com',
-      :osfamily        => 'RedHat',
-      :operatingsystem => 'OracleLinux'
+      :fqdn                   => 'myhost.example.com',
+      :osfamily               => 'RedHat',
+      :operatingsystem        => 'OracleLinux',
+      :operatingsystemrelease => '6.0'
     }
     end
 
@@ -360,9 +364,10 @@ describe 'cloudera::cm::server', :type => 'class' do
   context 'on a supported operatingsystem, custom parameters, use_tls => true' do
     describe 'RedHat' do
       let :facts do {
-        :osfamily        => 'RedHat',
-        :operatingsystem => 'OracleLinux',
-        :fqdn            => 'localhost.localdomain'
+        :fqdn                   => 'localhost.localdomain',
+        :osfamily               => 'RedHat',
+        :operatingsystem        => 'OracleLinux',
+        :operatingsystemrelease => '6.0'
       }
       end
 
@@ -400,9 +405,10 @@ describe 'cloudera::cm::server', :type => 'class' do
 
     describe 'SLES' do
       let :facts do {
-        :osfamily        => 'Suse',
-        :operatingsystem => 'SLES',
-        :fqdn            => 'localhost.localdomain'
+        :fqdn                   => 'localhost.localdomain',
+        :osfamily               => 'Suse',
+        :operatingsystem        => 'SLES',
+        :operatingsystemrelease => '11.0'
       }
       end
 
@@ -440,9 +446,10 @@ describe 'cloudera::cm::server', :type => 'class' do
 
     describe 'Debian' do
       let :facts do {
-        :osfamily        => 'Debian',
-        :operatingsystem => 'Debian',
-        :fqdn            => 'localhost.localdomain'
+        :fqdn                   => 'localhost.localdomain',
+        :osfamily               => 'Debian',
+        :operatingsystem        => 'Debian',
+        :operatingsystemrelease => '7'
       }
       end
 
@@ -479,9 +486,10 @@ describe 'cloudera::cm::server', :type => 'class' do
     end
 
     let :facts do {
-      :osfamily        => 'RedHat',
-      :operatingsystem => 'OracleLinux',
-      :fqdn            => 'localhost.localdomain'
+      :fqdn                   => 'localhost.localdomain',
+      :osfamily               => 'RedHat',
+      :operatingsystem        => 'OracleLinux',
+      :operatingsystemrelease => '6.0'
     }
     end
 

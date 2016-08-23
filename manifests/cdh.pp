@@ -61,50 +61,65 @@ class cloudera::cdh (
   anchor { 'cloudera::cdh::begin': }
   anchor { 'cloudera::cdh::end': }
 
-  Class {
-    require => Anchor['cloudera::cdh::begin'],
-    before  => Anchor['cloudera::cdh::end'],
-  }
-
   class { 'cloudera::cdh::bigtop':
 #    ensure      => $ensure,
 #    autoupgrade => $autoupgrade,
+    require => Anchor['cloudera::cdh::begin'],
+    before  => Anchor['cloudera::cdh::end'],
   }
   class { 'cloudera::cdh::hadoop':
 #    ensure      => $ensure,
 #    autoupgrade => $autoupgrade,
+    require => Anchor['cloudera::cdh::begin'],
+    before  => Anchor['cloudera::cdh::end'],
   }
 #  class { 'cloudera::cdh::hue':
 ##    ensure      => $ensure,
 ##    autoupgrade => $autoupgrade,
+#    require => Anchor['cloudera::cdh::begin'],
+#    before  => Anchor['cloudera::cdh::end'],
 #  }
   class { 'cloudera::cdh::hue::plugins':
 #    ensure      => $ensure,
 #    autoupgrade => $autoupgrade,
+    require => Anchor['cloudera::cdh::begin'],
+    before  => Anchor['cloudera::cdh::end'],
   }
   class { 'cloudera::cdh::hbase':
 #    ensure      => $ensure,
 #    autoupgrade => $autoupgrade,
+    require => Anchor['cloudera::cdh::begin'],
+    before  => Anchor['cloudera::cdh::end'],
   }
   class { 'cloudera::cdh::hive':
 #    ensure      => $ensure,
 #    autoupgrade => $autoupgrade,
+    require => Anchor['cloudera::cdh::begin'],
+    before  => Anchor['cloudera::cdh::end'],
   }
   class { 'cloudera::cdh::oozie':
 #    ensure         => $ensure,
 #    autoupgrade    => $autoupgrade,
 #    service_ensure => $service_ensure,
+    require => Anchor['cloudera::cdh::begin'],
+    before  => Anchor['cloudera::cdh::end'],
   }
   class { 'cloudera::cdh::pig':
 #    ensure      => $ensure,
 #    autoupgrade => $autoupgrade,
+    require => Anchor['cloudera::cdh::begin'],
+    before  => Anchor['cloudera::cdh::end'],
   }
   class { 'cloudera::cdh::zookeeper':
 #    ensure      => $ensure,
 #    autoupgrade => $autoupgrade,
+    require => Anchor['cloudera::cdh::begin'],
+    before  => Anchor['cloudera::cdh::end'],
   }
   class { 'cloudera::cdh::flume':
 #    ensure      => $ensure,
 #    autoupgrade => $autoupgrade,
+    require => Anchor['cloudera::cdh::begin'],
+    before  => Anchor['cloudera::cdh::end'],
   }
 }

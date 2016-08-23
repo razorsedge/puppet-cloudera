@@ -20,8 +20,9 @@ describe 'cloudera::java5::jce', :type => 'class' do
   context 'on a supported operatingsystem, default parameters' do
     let(:pre_condition) { 'class {"cloudera::java5":}' }
     let :facts do {
-      :osfamily        => 'RedHat',
-      :operatingsystem => 'CentOS'
+      :osfamily               => 'RedHat',
+      :operatingsystem        => 'CentOS',
+      :operatingsystemrelease => '6.0'
     }
     end
     it { should compile.with_all_deps }
@@ -53,8 +54,9 @@ describe 'cloudera::java5::jce', :type => 'class' do
 
   context 'on a supported operatingsystem, custom parameters' do
     let :facts do {
-      :osfamily        => 'RedHat',
-      :operatingsystem => 'OracleLinux'
+      :osfamily               => 'RedHat',
+      :operatingsystem        => 'OracleLinux',
+      :operatingsystemrelease => '6.0'
     }
     end
 

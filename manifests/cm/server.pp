@@ -126,7 +126,7 @@ class cloudera::cm::server (
   $db_host           = 'localhost',
   $db_port           = '3306',
   $db_user           = 'root',
-  $db_pass           = '',
+  $db_pass           = undef,
   $db_type           = 'embedded',
   $use_tls           = $cloudera::params::safe_cm_use_tls,
   $server_ca_file    = $cloudera::params::server_ca_file,
