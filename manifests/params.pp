@@ -188,8 +188,8 @@ class cloudera::params {
     $safe_manage_db_properties = str2bool($manage_db_properties)
   } else {
     $safe_manage_db_properties = $manage_db_properties
+  }
  
-
   if $::operatingsystemmajrelease { # facter 1.7+
     $majdistrelease = $::operatingsystemmajrelease
   } elsif $::lsbmajdistrelease {    # requires LSB to already be installed
