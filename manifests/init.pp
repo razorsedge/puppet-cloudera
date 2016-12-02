@@ -628,7 +628,7 @@ class cloudera (
         server_key_file   => $server_key_file,
         server_chain_file => $server_chain_file,
         server_keypw      => $server_keypw,
-	manage_db_properties => $manage_db_properties,
+        manage_db_properties => $manage_db_properties,
         require              => $cloudera_cm_require,
         before               => Anchor['cloudera::end'],
       }
