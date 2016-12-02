@@ -186,15 +186,15 @@ class cloudera::cm::server (
     tag    => 'cloudera-manager',
   }
 
- if $manage_db_properties {
-   file { '/etc/cloudera-scm-server/db.properties':
-     ensure  => $file_ensure,
-     path    => '/etc/cloudera-scm-server/db.properties',
-     content => $file_content,
-     require => Package['cloudera-manager-server'],
-     notify  => Service['cloudera-scm-server'],
-   }
- }
+  if $manage_db_properties {
+    file { '/etc/cloudera-scm-server/db.properties':
+      ensure  => $file_ensure,
+      path    => '/etc/cloudera-scm-server/db.properties',
+      content => $file_content,
+      require => Package['cloudera-manager-server'],
+      notify  => Service['cloudera-scm-server'],
+    }
+  }
 
   service { 'cloudera-scm-server':
     ensure     => $service_ensure_real,
