@@ -39,7 +39,7 @@
 #   The directory where parcels are downloaded and distributed.
 #   Default: /opt/cloudera/parcels
 #
-# [*manage_db_properties*]
+# [*manage_db_props*]
 #   Boolean flag that determines whether this module will manage /etc/cloudera-scm-serer/db.properties file or not.
 #   Need to resolve conflicts with other modules that manage the file.
 #   Default: true
@@ -77,12 +77,12 @@ class cloudera::cm5 (
   $use_tls          = $cloudera::params::safe_cm_use_tls,
   $verify_cert_file = $cloudera::params::verify_cert_file,
   $parcel_dir       = $cloudera::params::parcel_dir,
-  $manage_db_properties    = $cloudera::params::manage_db_properties
+  $manage_db_props  = $cloudera::params::manage_db_props
 ) inherits cloudera::params {
   # Validate our booleans
   validate_bool($autoupgrade)
   validate_bool($use_tls)
-  validate_bool($manage_db_properties)
+  validate_bool($manage_db_props)
 
   case $ensure {
     /(present)/: {
