@@ -171,19 +171,25 @@ class cloudera::cm::server (
 
   if $db_type != 'embedded' {
     $file_content = template("${module_name}/db.properties.erb")
+
+    file { '/etc/cloudera-scm-server/db.properties':
+      ensure  => $file_ensure,
+      path    => '/etc/cloudera-scm-server/db.properties',
+      content => $file_content,
+      require => Package['cloudera-manager-server'],
+      notify  => Service['cloudera-scm-server'],
+    }
+  } else {
+    file { '/etc/cloudera-scm-server/db.properties':
+      ensure  => $file_ensure,
+      path    => '/etc/cloudera-scm-server/db.properties',
+      require => Package['cloudera-manager-server'],
+    }
   }
 
   package { 'cloudera-manager-server':
     ensure => $package_ensure,
     tag    => 'cloudera-manager',
-  }
-
-  file { '/etc/cloudera-scm-server/db.properties':
-    ensure  => $file_ensure,
-    path    => '/etc/cloudera-scm-server/db.properties',
-    content => $file_content,
-    require => Package['cloudera-manager-server'],
-    notify  => Service['cloudera-scm-server'],
   }
 
   service { 'cloudera-scm-server':
