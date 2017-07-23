@@ -374,4 +374,9 @@ class cloudera::params {
     $parcel_dir = '/opt/cloudera/parcels'
   }
 
+  $log_file = $::cloudera_log_file ? {
+    undef => '/var/log/cloudera-scm-agent/cloudera-scm-agent.log',
+    default => $::cloudera_log_file,
+  }
+
 }

@@ -39,6 +39,10 @@
 #   The directory where parcels are downloaded and distributed.
 #   Default: /opt/cloudera/parcels
 #
+# [*log_file*]
+#   The file where the cloudera-scm-agent logs are saved.
+#   Default: /var/log/cloudera-scm-agent/cloudera-scm-agent.log
+#
 # === Actions:
 #
 # Installs the packages.
@@ -71,7 +75,8 @@ class cloudera::cm5 (
   $server_port      = $cloudera::params::cm_server_port,
   $use_tls          = $cloudera::params::safe_cm_use_tls,
   $verify_cert_file = $cloudera::params::verify_cert_file,
-  $parcel_dir       = $cloudera::params::parcel_dir
+  $parcel_dir       = $cloudera::params::parcel_dir,
+  $log_file         = $cloudera::params::log_file
 ) inherits cloudera::params {
   # Validate our booleans
   validate_bool($autoupgrade)
