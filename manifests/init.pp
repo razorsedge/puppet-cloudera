@@ -217,6 +217,11 @@
 #   The directory where parcels are downloaded and distributed.
 #   Default: /opt/cloudera/parcels
 #
+# [*manage_db_props*]
+#   Boolean flag that determines whether this module will manage /etc/cloudera-scm-serer/db.properties file or not.
+#   Need to resolve conflicts with other modules that manage the file.
+#   Default: true
+#
 # === Actions:
 #
 # Installs YUM repository configuration files.
@@ -304,7 +309,8 @@ class cloudera (
   $proxy            = $cloudera::params::proxy,
   $proxy_username   = $cloudera::params::proxy_username,
   $proxy_password   = $cloudera::params::proxy_password,
-  $parcel_dir       = $cloudera::params::parcel_dir
+  $parcel_dir       = $cloudera::params::parcel_dir,
+  $manage_db_props  = $cloudera::params::manage_db_props
 ) inherits cloudera::params {
   # Validate our booleans
   validate_bool($autoupgrade)
@@ -315,6 +321,7 @@ class cloudera (
   validate_bool($install_java)
   validate_bool($install_jce)
   validate_bool($install_cmserver)
+  validate_bool($manage_db_props)
 
   anchor { 'cloudera::begin': }
   anchor { 'cloudera::end': }
@@ -385,6 +392,7 @@ class cloudera (
       verify_cert_file => $verify_cert_file,
       require          => $cloudera_cm_require,
       parcel_dir       => $parcel_dir,
+      manage_db_props  => $manage_db_props,
       before           => Anchor['cloudera::end'],
     }
     class { 'cloudera::cm5::repo':
@@ -417,6 +425,7 @@ class cloudera (
         server_key_file   => $server_key_file,
         server_chain_file => $server_chain_file,
         server_keypw      => $server_keypw,
+        manage_db_props   => $manage_db_props,
         require           => $cloudera_cm_require,
         before            => Anchor['cloudera::end'],
       }
@@ -586,6 +595,7 @@ class cloudera (
       verify_cert_file => $verify_cert_file,
       require          => $cloudera_cm_require,
       parcel_dir       => $parcel_dir,
+      manage_db_props  => $manage_db_props,
       before           => Anchor['cloudera::end'],
     }
     class { 'cloudera::cm::repo':
@@ -618,6 +628,7 @@ class cloudera (
         server_key_file   => $server_key_file,
         server_chain_file => $server_chain_file,
         server_keypw      => $server_keypw,
+        manage_db_props   => $manage_db_props,
         require           => $cloudera_cm_require,
         before            => Anchor['cloudera::end'],
       }

@@ -78,6 +78,11 @@
 #   The password used to protect the keystore.
 #   Default: none
 #
+# [*manage_db_props*]
+#   Boolean flag that determines whether this module will manage /etc/cloudera-scm-serer/db.properties file or not.
+#   Need to resolve conflicts with other modules that manage the file.
+#   Default: true
+#
 # === Actions:
 #
 # Installs the packages.
@@ -133,11 +138,13 @@ class cloudera::cm::server (
   $server_cert_file  = $cloudera::params::server_cert_file,
   $server_key_file   = $cloudera::params::server_key_file,
   $server_chain_file = $cloudera::params::server_chain_file,
-  $server_keypw      = $cloudera::params::server_keypw
+  $server_keypw      = $cloudera::params::server_keypw,
+  $manage_db_props   = $cloudera::params::manage_db_props
 ) inherits cloudera::params {
   # Validate our booleans
   validate_bool($autoupgrade)
   validate_bool($use_tls)
+  validate_bool($manage_db_props)
   # Validate our regular expressions
   $states = [ '^embedded$', '^mysql$','^oracle$','^postgresql$' ]
   validate_re($db_type, $states, '$db_type must be either embedded, mysql, oracle, or postgresql.')
@@ -178,12 +185,14 @@ class cloudera::cm::server (
     tag    => 'cloudera-manager',
   }
 
-  file { '/etc/cloudera-scm-server/db.properties':
-    ensure  => $file_ensure,
-    path    => '/etc/cloudera-scm-server/db.properties',
-    content => $file_content,
-    require => Package['cloudera-manager-server'],
-    notify  => Service['cloudera-scm-server'],
+  if $manage_db_props {
+    file { '/etc/cloudera-scm-server/db.properties':
+      ensure  => $file_ensure,
+      path    => '/etc/cloudera-scm-server/db.properties',
+      content => $file_content,
+      require => Package['cloudera-manager-server'],
+      notify  => Service['cloudera-scm-server'],
+    }
   }
 
   service { 'cloudera-scm-server':

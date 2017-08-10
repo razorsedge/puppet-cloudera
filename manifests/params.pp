@@ -180,6 +180,16 @@ class cloudera::params {
     $safe_install_cmserver = $install_cmserver
   }
 
+  $manage_db_props = $::cloudera_manage_db_props ? {
+    undef => true,
+    default => $::cloudera_manage_db_props,
+  }
+  if is_string($manage_db_props) {
+    $safe_manage_db_props = str2bool($manage_db_props)
+  } else {
+    $safe_manage_db_props = $manage_db_props
+  } 
+
   if $::operatingsystemmajrelease { # facter 1.7+
     $majdistrelease = $::operatingsystemmajrelease
   } elsif $::lsbmajdistrelease {    # requires LSB to already be installed
