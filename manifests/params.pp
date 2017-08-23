@@ -239,6 +239,18 @@ class cloudera::params {
   } else {
     $safe_install_cmserver = $install_cmserver
   }
+ 
+  $cloudera_manage_db_props = getvar('::cloudera_manage_db_props')
+  if $cloudera_manage_db_props {
+    $manage_db_props = $::cloudera_manage_db_props
+  } else {
+    $manage_db_props = true
+  }
+  if is_string($manage_db_props) {
+    $safe_manage_db_props = str2bool($manage_db_props)
+  } else {
+    $safe_manage_db_props = $manage_db_props
+  } 
 
   if getvar('::operatingsystemmajrelease') { # facter 1.7+
     $majdistrelease = $::operatingsystemmajrelease
