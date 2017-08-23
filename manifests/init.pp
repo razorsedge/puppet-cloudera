@@ -217,6 +217,10 @@
 #   The directory where parcels are downloaded and distributed.
 #   Default: /opt/cloudera/parcels
 #
+# [*vm_swappiness*]
+#   The sysctl value for vm.swappiness.
+#   Default: 0
+#
 # === Actions:
 #
 # Installs YUM repository configuration files.
@@ -304,7 +308,8 @@ class cloudera (
   $proxy            = $cloudera::params::proxy,
   $proxy_username   = $cloudera::params::proxy_username,
   $proxy_password   = $cloudera::params::proxy_password,
-  $parcel_dir       = $cloudera::params::parcel_dir
+  $parcel_dir       = $cloudera::params::parcel_dir,
+  $vm_swappiness    = $cloudera::params::vm_swappiness
 ) inherits cloudera::params {
   # Validate our booleans
   validate_bool($autoupgrade)
@@ -315,13 +320,14 @@ class cloudera (
   validate_bool($install_java)
   validate_bool($install_jce)
   validate_bool($install_cmserver)
+  validate_integer($vm_swappiness, 100, 0)
 
   anchor { 'cloudera::begin': }
   anchor { 'cloudera::end': }
 
   sysctl { 'vm.swappiness':
     ensure  => $ensure,
-    value   => '0',
+    value   => "${vm_swappiness}",
     apply   => true,
     comment => 'Cloudera recommended setting.',
     require => Anchor['cloudera::begin'],
