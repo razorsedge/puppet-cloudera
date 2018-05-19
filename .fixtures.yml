@@ -3,7 +3,7 @@ fixtures:
     stdlib: "https://github.com/puppetlabs/puppetlabs-stdlib.git"
     mysql:
       repo: "https://github.com/puppetlabs/puppetlabs-mysql.git"
-      ref: "3.11.0"
+      ref: "5.3.0"
     postgresql:
       repo: "https://github.com/puppetlabs/puppet-postgresql.git"
       ref: "4.9.0"
