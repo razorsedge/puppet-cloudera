@@ -10,7 +10,9 @@ fixtures:
     concat:
       repo: "https://github.com/puppetlabs/puppetlabs-concat.git"
       ref: "1.2.1"
-    staging: "https://github.com/nanliu/puppet-staging.git"
+    staging:
+      repo: "https://github.com/voxpupuli/puppet-staging"
+      ref: "3.2.0"
     epel:
       repo: "https://github.com/stahnma/puppet-module-epel.git"
       ref: "1.2.2"
